@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Penguin ❤️</title>
+
+<style>
+ /* 💍 Ring Proposal Popup */
+#proposalPopup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+justify-content:center;
+align-items:center;
+z-index:2000;
+animation:fadeIn 0.5s ease;
+}
+
+.proposal-box{
+background:white;
+color:black;
+padding:30px;
+border-radius:20px;
+text-align:center;
+animation:pop 0.6s ease;
+}
+
+.proposal-box img{
+width:120px;
+animation:ringPulse 1.5s infinite;
+}
+
+@keyframes pop{
+from{transform:scale(0.5);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+@keyframes ringPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.15)}
+}
+   
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif
+}
+
+body{
+overflow-x:hidden;
+text-align:center;
+color:white;
+}
+
+/* 🌌 LOCK SCREEN GALAXY */
+#lock{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:black;
+position:relative;
+overflow:hidden;
+}
+
+#lock::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:radial-gradient(white 1px,transparent 1px);
+background-size:3px 3px;
+animation:stars 60s linear infinite;
+opacity:0.4;
+z-index:0;
+}
+
+#lock h2,
+#lock input,
+#lock button,
+#error{
+position:relative;
+z-index:1;
+}
+
+@keyframes stars{
+from{transform:translate(0,0)}
+to{transform:translate(-500px,-500px)}
+}
+
+/* 💖 MAIN PAGE */
+#main{
+display:none;
+padding:20px;
+background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffb199);
+min-height:100vh;
+}
+
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+margin-top:15px;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+margin:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* 💖 Heartbeat Photo */
+.heart-photo{
+width:250px;
+border-radius:20px;
+animation:heartbeat 1.2s infinite;
+}
+@keyframes heartbeat{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08)}
+}
+
+/* 📦 POPUP */
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.popup-content{
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
+max-width:90%;
+max-height:80vh;
+overflow-y:auto;
+text-align:center;
+position:relative;
+}
+
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:28px;
+cursor:pointer;
+}
+
+/* 📸 Polaroid */
+.polaroid{
+background:white;
+color:black;
+padding:10px;
+width:150px;
+margin:15px;
+display:inline-block;
+border-radius:10px;
+transform:rotate(-3deg);
+}
+.polaroid img{
+width:100%;
+border-radius:5px;
+}
+
+/* Swipe */
+.swipe{
+display:flex;
+justify-content:center;
+align-items:center;
+overflow-x:auto;
+gap:15px;
+padding:20px;
+scroll-snap-type:x mandatory;
+}
+
+.swipe img{
+width:250px;
+border-radius:15px;
+scroll-snap-align:center;
+flex-shrink:0;
+}
+
+/* Fireworks */
+.firework{
+position:fixed;
+font-size:25px;
+animation:explode 1s ease-out forwards;
+}
+@keyframes explode{
+to{
+transform:translateY(-150px) scale(2);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lock">
+<h2>🔐 Only Penguin Can Enter 🐧</h2>
+<input type="password" id="pass" placeholder="Enter Secret">
+<button onclick="unlock()">Unlock ❤️</button>
+<p id="error"></p>
+</div>
+
+<div id="main">
+
+<h1>Happy Valentine’s Day Bayko❤️</h1>
+
+<img src="her-main.jpg" class="heart-photo">
+
+<h2 style="margin-top:20px;">You are my forever, my always, my everything.</h2>
+
+<button onclick="showLetter()">Open My Heart 💌</button>
+
+<div id="letter" style="display:none; background:rgba(255,255,255,0.2); padding:20px; margin:20px; border-radius:15px;">
+<p>
+From the moment you entered my life, everything changed.  
+Your smile is my peace.  
+Your voice is my comfort.  
+Your love is my strength.  
+I promise to stand beside you in every storm and every sunshine.  
+Will you stay with me forever, Penguin? ❤️
+</p>
+</div>
+
+<!-- NEW BUTTONS -->
+<button onclick="openMemories()">📸 View Our Memories</button>
+<button onclick="openMoments()">💕 See More Moments</button>
+
+<h2 style="margin-top:30px;">Will You Be Mine Forever? 💍</h2>
+<button onclick="yes()">YES ❤️</button>
+<button onmouseover="run(this)">NO 😜</button>
+
+</div>
+
+<!-- POPUP 1 -->
+<div id="memoriesPopup" class="popup">
+<div class="popup-content">
+<span class="close" onclick="closePopup('memoriesPopup')">&times;</span>
+<h2>Our Beautiful Memories 📸</h2>
+<div class="polaroid"><img src="memory1.jpeg"><p>My Cuteii</p></div>
+<div class="polaroid"><img src="memory2.jpeg"><p>lil princess</p></div>
+<div class="polaroid"><img src="memory3.jpeg"><p>cuteii in Bindii</p></div>
+</div>
+</div>
+
+<!-- POPUP 2 -->
+<div id="momentsPopup" class="popup">
+<div class="popup-content">
+<span class="close" onclick="closePopup('momentsPopup')">&times;</span>
+<h2>More of Vixen 💕</h2>
+<div class="swipe">
+<img src="memory4.jpeg">
+<img src="extra1.jpeg">
+<img src="extra2.jpeg">
+</div>
+</div>
+</div>
+<!-- 💍 Proposal Popup -->
+<div id="proposalPopup">
+<div class="proposal-box">
+<h2>You Said YESSS 😍💖</h2>
+<img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+<p style="margin-top:15px;">Forever Starts Now My Penguin 💍✨</p>
+<button onclick="closeProposal()">Close ❤️</button>
+</div>
+</div>
+<script>
+
+function unlock(){
+if(document.getElementById("pass").value==="penguin"){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+document.getElementById("error").innerText="Wrong password Babyyyyy 😏";
+}
+}
+
+function showLetter(){
+document.getElementById("letter").style.display="block";
+}
+
+function openMemories(){
+document.getElementById("memoriesPopup").style.display="flex";
+}
+
+function openMoments(){
+document.getElementById("momentsPopup").style.display="flex";
+}
+
+function closePopup(id){
+document.getElementById(id).style.display="none";
+}
+
+function run(btn){
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"%";
+btn.style.top=Math.random()*80+"%";
+}
+
+function yes(){
+
+document.getElementById("proposalPopup").style.display="flex";
+
+for(let i=0;i<25;i++){
+let f=document.createElement("div");
+f.className="firework";
+f.innerHTML="✨";
+f.style.left=Math.random()*100+"vw";
+f.style.top="80vh";
+document.body.appendChild(f);
+setTimeout(()=>{f.remove()},1000);
+}
+
+}
+
+function closeProposal(){
+document.getElementById("proposalPopup").style.display="none";
+}
+
+
+</script>
+
+</body>
+</html>
